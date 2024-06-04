@@ -29,6 +29,7 @@ This project automates the login process and point registration for an intranet 
     LOGIN=your_login
     PASSWORD=your_password
     URL=https://your.url.com
+    SCREENSHOT_PATH=/path/to/your/screenshot/directory
     ```
 
 ## Usage

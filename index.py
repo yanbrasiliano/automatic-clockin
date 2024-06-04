@@ -16,6 +16,7 @@ load_dotenv()
 login_value = os.getenv('LOGIN')
 password_value = os.getenv('PASSWORD')
 url = os.getenv('URL')
+path = os.getenv('SCREENSHOT_PATH')
 
 # Selenium configuration
 options = webdriver.ChromeOptions()
@@ -49,7 +50,7 @@ try:
     print(f"Password field value after insertion: {password_field.get_attribute('value')}")
 
     # Take a screenshot after filling in the fields
-    driver.save_screenshot('screenshot_after_js.png')
+    driver.save_screenshot(os.path.join(path, 'screenshot_after_js.png'))
 
     # Submit the form using JavaScript
     driver.execute_script("document.querySelector('button[type=submit]').click();")
@@ -58,7 +59,7 @@ try:
     time.sleep(3)
 
     # Take a screenshot of the page after login
-    driver.save_screenshot('screenshot_after_submit.png')
+    driver.save_screenshot(os.path.join(path, 'screenshot_after_submit.png'))
 
     # Wait until the "REGISTER POINT" button is present and visible
     register_button = WebDriverWait(driver, 10).until(
@@ -69,7 +70,7 @@ try:
 
     time.sleep(3)
 
-    driver.save_screenshot('screenshot_after_register.png')
+    driver.save_screenshot(os.path.join(path, 'screenshot_after_register.png'))
 
 finally:
     # Close the browser
