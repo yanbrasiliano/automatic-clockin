@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -8,6 +7,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 from dotenv import load_dotenv
 import os
 import time
+import argparse
+
+# Argument parser setup
+parser = argparse.ArgumentParser(description="Automate login and point registration.")
+parser.add_argument('--screenshot', action='store_true', help="Take a screenshot after logging in without registering the point.")
+args = parser.parse_args()
 
 # Load environment variables from .env file
 load_dotenv()
@@ -58,22 +63,25 @@ try:
     # Wait for the login to be processed and the next page to load
     time.sleep(3)
 
-    # Take a screenshot of the page after login
-    driver.save_screenshot(os.path.join(path, 'screenshot_after_submit.png'))
+    # Take a screenshot after logging in
+    driver.save_screenshot(os.path.join(path, 'screenshot_after_login.png'))
 
-    # Wait until the "REGISTER POINT" button is present and visible
-    register_button = WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located((By.ID, 'btn-registrar'))
-    )
-    register_button.click()
-    print("REGISTER POINT button clicked.")
+    if not args.screenshot:
+        # Wait until the "REGISTER POINT" button is present and visible
+        register_button = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.ID, 'btn-registrar'))
+        )
+        register_button.click()
+        print("REGISTER POINT button clicked.")
 
-    time.sleep(3)
+        time.sleep(3)
 
-    driver.save_screenshot(os.path.join(path, 'screenshot_after_register.png'))
+        driver.save_screenshot(os.path.join(path, 'screenshot_after_register.png'))
 
 finally:
     # Close the browser
     driver.quit()
 
-print("Screenshot saved as 'screenshot_after_js.png', 'screenshot_after_submit.png', and 'screenshot_after_register.png'")
+print("Screenshot saved as 'screenshot_after_js.png' and 'screenshot_after_login.png'")
+if not args.screenshot:
+    print("Screenshot saved as 'screenshot_after_register.png'")
