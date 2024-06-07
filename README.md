@@ -25,13 +25,6 @@ This project automates the login process and point registration for an intranet 
     ```sh
     pip install -r requirements.txt
     ```
-4. Create a `.env` based on `.env.example` file in the root directory and add your credentials and URL:
-    ```dotenv
-    LOGIN=your_login
-    PASSWORD=your_password
-    URL=https://your.url.com
-    SCREENSHOT_PATH=/path/to/your/screenshot/directory
-    ```
 
 ## Integration with Telegram
 
@@ -54,14 +47,14 @@ This project can also send a confirmation message to your Telegram bot before ex
 ### 3. Configure the `.env` file
 
 Ensure your `.env` file contains the following variables:
-    ```dotenv
+    ```
     TELEGRAM_TOKEN=your_telegram_bot_token
     CHAT_ID=your_obtained_chat_id_here
     LOGIN=your_login_value
     PASSWORD=your_password_value
     URL=your_url_here
     SCREENSHOT_PATH=/path/to/screenshot/directory
-    SCRIPT_PATH=/home/hiyan/Development/personal/automatic-clockin/index.py
+    SCRIPT_PATH=/path/to/point/registration/script
     ```
 
 ### 4. Sending Messages and Handling Responses
@@ -82,17 +75,7 @@ For example, to run the script every weekday at specific times, add the followin
     30 13 * * 1-5 python3 /path/to/send_telegram_message.py
     05 18 * * 1-5 python3 /path/to/send_telegram_message.py
     ```
-
-## Usage
-
-Run the point registration script manually:
-```sh
-python index.py
-```
-
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+This will send a message to your Telegram bot at 7:50 AM, 12:00 PM, 1:30 PM, and 6:05 PM every weekday.
 
 ## Testing the Integration Manually
 
@@ -116,4 +99,12 @@ Distributed under the MIT License. See `LICENSE` for more information.
      python index.py
      ```
 
-This ensures you can set up and test the integration with Telegram before automating the process using cron jobs.
+## Troubleshooting
+
+- If you encounter any issues, ensure that the `.env` file is correctly configured and that the required dependencies are installed.
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
